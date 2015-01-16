@@ -16,6 +16,7 @@ var tarball = require('../lib/tarball');
 var clean   = require('../lib/clean');
 var outFile = config.mysql[which].file_prefix + 'mysql-' + moment().format('YYYYMMDD-HHmmss');
 var databases = config.mysql[which].databases;
+var encrypt = config.mysql[which].encrypt;
 
 async.series({
 	connect: function (cb) {
@@ -40,9 +41,9 @@ async.series({
 	    cb();
 	  },
   backup: mysql.backup.bind(mysql, outFile, databases),
-  archive: tarball.create.bind(tarball, outFile),
-  sync: dropbox.send.bind(dropbox, outFile),
-  clean: clean.bind(clean, outFile),
+  archive: tarball.create.bind(tarball, outFile, encrypt),
+  sync: dropbox.send.bind(dropbox, outFile, encrypt),
+  clean: clean.bind(clean, outFile, encrypt),
   cleanOld: dropbox.cleanOld.bind(dropbox, config.mysql[which].rotate)
 }, function (err, args) {
   if (err) return fail(err);
@@ -59,6 +60,8 @@ function fail (err) {
 
   console.error('The MySQL backup job has encountered a fatal error and could not continue.');
   console.error("\tError: %s", JSON.stringify(err));
+  // http://stackoverflow.com/questions/10539201/how-to-output-a-deep-stack-trace-in-node-js
+  // http://stackoverflow.com/questions/2923858/how-to-print-a-stack-trace-in-node-js
   if(typeof err.stack !== 'undefined') console.error(err.stack);
   process.exit(1);
 }

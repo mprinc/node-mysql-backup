@@ -24,7 +24,11 @@
       "directory": "mysql",
       "hostname": "localhost",
       "username": "root",
-      "password": "",
+      "password": "xxx",
+      "encrypt": {
+    	  "password": "yyy",
+    	  "extension": ".zip" // extension is optional, default is ".zip"
+      },
       "databases": [
       	  {
     		  "name": "datatalks",
