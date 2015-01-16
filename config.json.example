@@ -17,6 +17,22 @@
     }
   },
   "mysql": {
+    "weekly": {
+      "comment": "Nightly Backups",
+      "driver": "dropbox",
+      "file_prefix": "",
+      "directory": "mysql",
+      "hostname": "localhost",
+      "username": "root",
+      "password": "",
+      "databases": [
+      	  {
+    		  "name": "datatalks",
+    		  "tables": true // all tables, same would be if you missed this property at all
+    	  }
+      ],
+      "rotate": 60
+    }
     "nightly": {
       "comment": "Nightly Backups",
       "driver": "dropbox",
@@ -25,6 +41,28 @@
       "hostname": "localhost",
       "username": "root",
       "password": "",
+      "databases": [
+      	  {
+    		  "name": "datatalks",
+    		  "tables": ["data", "idea"] // only listed tables
+    	  }
+      ],
+      "rotate": 60
+    },
+    "hourly": {
+      "comment": "Nightly Backups",
+      "driver": "dropbox",
+      "file_prefix": "",
+      "directory": "mysql",
+      "hostname": "localhost",
+      "username": "root",
+      "password": "",
+      "databases": [
+      	  {
+    		  "name": "datatalks",
+    		  "tables": false // no backing up at all, although, create table file will be created, to avoid it, remove entry in total
+    	  }
+      ],
       "rotate": 60
     }
   },
