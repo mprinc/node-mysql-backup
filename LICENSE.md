@@ -3,6 +3,7 @@ The MIT License (MIT)
 
 The MIT License (MIT)
 
+Copyright (c) 2015 Sasha Mile Rudan
 Copyright (c) 2013 Brandon Wamboldt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
